@@ -1,58 +1,130 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# **CIT 3102 — MIDTERM ACTIVITY 2**
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### BUILD YOUR OWN API
 
-## About Laravel
+**Name:** Thea Mikaela S. Santos  
+**Year & Section:** 3rd Year \- IT3E  
+**Chosen Resource:** Hotel Booking  
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+        Project Setup
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+The Hotel Booking API is a Laravel project that enables users to create an account, log in and manage their hotel booking data. It is possible to add, view, edit, filter and delete one’s hotel booking information. The project uses SQLite database to store booking data and Laravel Sanctum to secure the API routes that require authentication. Bruno is used to test the API. 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Technologies Used:**
 
-## Learning Laravel
+* PHP  
+* Laravel  
+* SQLite  
+* Laravel Sanctum  
+* Bruno
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+        INSTALLATION SETUP
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**STEP 1: Clone the repository**
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+1. 
 
-## Agentic Development
+- git clone \[https\://github.com/miksley/CIT3102-M5-HOTEL-BOOKING.git\]  
+- cd hotel-booking-api
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Replace the placeholder with the actual GitHub repository URL.
 
-```bash
-composer require laravel/boost --dev
+**STEP 2: Install the dependencies**
 
-php artisan boost:install
-```
+- composer install
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+If Composer is not installed globally, use the Composer PHAR file.
 
-## Contributing
+**STEP 3: Set up the environment file**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Copy .env.example to .env if the file does not already exist.
 
-## Code of Conduct
+- copy .env.example .env
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Generate the application key:
 
-## Security Vulnerabilities
+- php artisan key:generate
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**STEP 4: Configure the database**
 
-## License
+Set the database connection in .env:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- DB\_CONNECTION=sqlite
+
+Make sure the SQLite database file exists at **database/database.sqlite**.
+
+**STEP 5: Run the migrations**
+
+- php artisan migrate
+
+This creates the database tables needed by the application.
+
+**STEP 6: Start the Laravel server**
+
+- php artisan serve
+
+The API will be available at: **http\://127.0.0.1:8000**
+
+Make sure you keep the terminal open while testing the API.
+
+        API Routes
+
+The base URL is **http\://127.0.0.1:8000/api**.
+
+| Verb | Path | Description | Token Required |
+| :---- | :---- | :---- | ----- |
+| POST | /register | Creates a new user account  | No |
+| POST | /login | Checks the user's login details and returns a token  | No |
+| GET | /me | Gets the currently authenticated user  | Yes |
+| POST | /logout | Logs out the user by revoking the current token  | Yes |
+| GET | /bookings | Gets all bookings and supports filtering | Yes |
+| POST | /bookings | Creates a new hotel booking  | Yes |
+| GET | /bookings/{id} | Gets one booking using its ID  | Yes |
+| PUT | /bookings/{id} | Updates an existing booking  | Yes |
+| DELETE | /bookings/{id} | Deletes a booking using its ID  | Yes |
+
+**Booking Fields**
+
+* **guest\_name** \- Name of the guest  
+* **hotel\_name** \- Name of the hotel  
+* **room\_type** \- Type of room booked  
+* **nights** \- Number of nights booked  
+* **total\_price** \- Total price of the booking  
+* **guests** \- Number of guests
+
+**Filtering Bookings**
+
+* **GET /api/bookings?room\_type=Deluxe** – Filters bookings by room type.  
+* **GET /api/bookings?nights=3** – Filters bookings by number of nights.
+
+Both filtering requests require a valid Bearer Token.
+
+        BRUNO TESTING SCREENSHOTS
+
+The following screenshots represent the API requests and their corresponding responses tested in Bruno. 
+
+1. **Register**
+
+2. **Login**
+
+3. **Get Bookings With No Token**
+
+4. **Get Bookings With Token**
+
+5. **Create Booking With Valid Data**
+
+6. **Create Booking With A Required Field Missing**
+
+7. **Get One Booking**
+
+8. **Get a Non-Existing Booking**
+
+9. **Update Booking with Changed Data**
+
+10. **Delete Booking**
+
+        BRUNO TESTING SCREENSHOTS
+
+A 204 No Content status indicates that the request was successful, but the server is not returning any body content. A 200 OK status also indicates a success request but usually has body content sent back with it, such as a confirmation message. If a booking is deleted successfully, our API would send back 204 No Content because the record in the database was deleted, so no additional confirmation is needed. That is why a 204 status is used for a DELETE request.
+
